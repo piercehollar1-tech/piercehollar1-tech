@@ -24,6 +24,8 @@ How I'm building it:
 - **The stack:** the automation layer runs on n8n and the Claude API, with a working internal dashboard prototype deployed on Vercel for managing clients and workflows.
 - **Where it is now:** pre-launch, and I'm preparing a first pilot with a local massage therapy practice to test it against real day to day operations.
 
+The internal dashboard I use to run it is open source here: **[piercehollar1-tech/auradesk](https://github.com/piercehollar1-tech/auradesk)**.
+
 ### A personal AI operating layer
 
 The environment I run my own work in, built on Claude Code. It started as a way to stop losing context between work sessions and grew into a small system:
