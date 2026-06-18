@@ -55,6 +55,10 @@ It's a working example of how I think about AI tooling, that it should be reliab
 - Anthropic AI Fluency: Framework & Foundations (2026)
 - Anthropic Claude 101 (2026)
 
+## GitHub activity
+
+![Pierce's GitHub stats](https://github-readme-stats.vercel.app/api?username=piercehollar1-tech&show_icons=true&hide_border=true&include_all_commits=true&count_private=true)
+
 ## Reach me
 
 - Email: pkcobusiness@gmail.com
