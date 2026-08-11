@@ -1,0 +1,9 @@
+version: 2
+updates:
+  # Keeps the SHA pins in render.yml from silently rotting. Review the action
+  # diff on each PR, not just the version bump -- a SHA pin stops tag movement,
+  # it does not make the new code safe.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
