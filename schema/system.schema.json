@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Profile system manifest",
+  "description": "Documentation of the rules enforced by scripts/validate.py. The script is the enforcement; this file exists so the contract is machine-readable. Integers only, closed key set, narrow ranges -- a ZIP code and a phone number are also integers, so the key allowlist does the real work.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["enforcement_handlers", "lifecycle_events", "scheduled_jobs", "memory_entries", "skills"],
+  "properties": {
+    "enforcement_handlers": { "type": "integer", "minimum": 0, "maximum": 10000 },
+    "lifecycle_events":     { "type": "integer", "minimum": 0, "maximum": 64 },
+    "scheduled_jobs":       { "type": "integer", "minimum": 0, "maximum": 10000 },
+    "memory_entries":       { "type": "integer", "minimum": 0, "maximum": 10000 },
+    "skills":               { "type": "integer", "minimum": 0, "maximum": 10000 }
+  }
+}

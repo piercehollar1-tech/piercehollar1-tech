@@ -1,0 +1,11 @@
+# Internal design docs live in the vault, never in this public repo.
+docs/
+
+.env
+.env.*
+*.key
+id_rsa*
+.DS_Store
+__pycache__/
+*.pyc
+.venv/

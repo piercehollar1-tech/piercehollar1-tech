@@ -1,0 +1,64 @@
+name: render banner
+
+# Deliberately absent: pull_request, pull_request_target, issue_comment,
+# issues, discussion, workflow_run, repository_dispatch. Every one of those
+# carries attacker-controlled content into a job that holds a write token.
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  push:
+    branches: [main]
+    paths:
+      - data/**
+      - scripts/**
+      - .github/workflows/render.yml
+  workflow_dispatch:
+
+# Deny by default; the single job below grants itself the minimum it needs.
+permissions: {}
+
+concurrency:
+  group: render-banner
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      # Pinned to a full commit SHA, not a tag. A tag can be repointed by
+      # anyone who compromises the author's account -- the mechanism behind
+      # the tj-actions/changed-files compromise (CVE-2025-30066).
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+
+      # Both scripts are standard library only: no pip install, so there is
+      # no third-party runtime dependency in this pipeline.
+      - name: Render
+        run: python3 scripts/render.py
+
+      # Fails closed. Nothing is committed unless the manifest is within its
+      # allowlist and every string in the output is one we intend to publish.
+      - name: Validate
+        run: python3 scripts/validate.py
+
+      - name: Commit if changed
+        env:
+          # Passed as an environment variable rather than interpolated into
+          # the script body -- GitHub's documented script-injection mitigation.
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eu
+          if git diff --quiet -- assets; then
+            echo "no change; nothing to commit"
+            exit 0
+          fi
+          # Bot identity on purpose. A personal address here would stamp a
+          # real email into public commit metadata every night, forever.
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets
+          git commit -m "chore: regenerate profile banner"
+          git push "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
