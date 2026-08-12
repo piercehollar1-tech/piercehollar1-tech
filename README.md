@@ -21,6 +21,8 @@ Three ideas it runs on:
 
 **[ai-operating-layer](https://github.com/piercehollar1-tech/ai-operating-layer)** — a sanitized reference architecture for the above: component boundaries, retrieval flow, and persistence model. Every included file uses placeholder data. The live system stays private.
 
+**[claude-codex-image-gen](https://github.com/piercehollar1-tech/claude-codex-image-gen)** — a Claude Code skill that generates images through the Codex CLI's own `image_gen` tool, on an existing ChatGPT plan, with no API key. The plumbing is small; most of the repo is a prompt-craft rulebook, each rule earned from a render that came back wrong.
+
 ## Elsewhere
 
 [LinkedIn](https://www.linkedin.com/in/pierce-hollar-111276361)
